@@ -1,0 +1,115 @@
+@model IEnumerable<BookRadar.Web.Models.HistorialBusqueda>
+@{
+    ViewData["Title"] = "Historial";
+}
+
+<section class="mx-auto" style="max-width: 1100px;">
+    <header class="mb-4">
+        <h1 class="display-6 title">Historial de búsquedas</h1>
+       
+    </header>
+
+    <div class="card card-soft">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <!-- agrega id para DataTables -->
+                <table id="historialTable" class="table align-middle mb-0 table-elevated">
+                    <thead class="table-head">
+                        <tr>
+                            <th style="min-width: 180px;">Autor</th>
+                            <th>Título</th>
+                            <th style="width: 100px;">Año</th>
+                            <th style="min-width: 160px;">Editorial</th>
+                            <th style="min-width: 180px;">Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model?.Any() != true)
+                        {
+                            <tr><td colspan="5" class="text-center text-muted py-4">Aún no hay registros.</td></tr>
+                        }
+                        else
+                        {
+                            foreach (var h in Model)
+                            {
+                                <tr>
+                                    <td class="fw-500">@h.Autor</td>
+                                    <td>@h.Titulo</td>
+                                    <td>@(h.AnioPublicacion?.ToString() ?? "—")</td>
+                                    <td class="text-muted">@(!string.IsNullOrWhiteSpace(h.Editorial) ? h.Editorial : "—")</td>
+                                    <td class="text-muted">@h.FechaConsulta.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card-footer d-flex justify-content-between flex-wrap gap-2">
+            <a asp-action="Index" class="btn btn-brand btn-responsive">Nueva búsqueda</a>
+            @* <a asp-action="ExportHistorial" class="btn btn-outline-brand btn-responsive">Exportar CSV</a> *@
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <!-- jQuery + DataTables (usa el bundle BS5) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.css">
+
+    <script>
+        $(function () {
+            $('#historialTable').DataTable({
+                pageLength: 10,
+                lengthChange: false,     // oculta selector "mostrar N"
+                ordering: true,          // permite ordenar columnas
+                info: true,              // "Mostrando 1 a 10 de ..."
+                searching: true,         // búsqueda rápida
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/2.0.7/i18n/es-ES.json'
+                }
+            });
+        });
+    </script>
+
+    <style>
+        /* Ajustes visuales para integrarlo a tu tema */
+        .dataTables_wrapper .dataTables_paginate .pagination {
+            margin: .75rem; /* respirito bajo la tabla */
+        }
+
+        /* Dark mode para DataTables con tus variables */
+        html[data-theme="dark"] .dataTable,
+        html[data-theme="dark"] .dataTables_info,
+        html[data-theme="dark"] .dataTables_length label,
+        html[data-theme="dark"] .dataTables_filter label {
+            color: var(--text);
+        }
+
+        html[data-theme="dark"] .dataTables_wrapper .form-select,
+        html[data-theme="dark"] .dataTables_wrapper .form-control {
+            background: #0f1713;
+            color: var(--text);
+            border-color: var(--border);
+        }
+
+        html[data-theme="dark"] .page-item .page-link {
+            background: var(--surface);
+            color: var(--text);
+            border-color: var(--border);
+        }
+
+        html[data-theme="dark"] .page-item.active .page-link {
+            background: var(--brand-500);
+            border-color: var(--brand-500);
+            color: #fff;
+        }
+
+        html[data-theme="dark"] .page-item .page-link:hover {
+            background: var(--brand-50);
+            color: var(--brand-800);
+        }
+    </style>
+}

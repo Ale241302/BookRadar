@@ -1,0 +1,155 @@
+@model BookRadar.Web.Models.ViewModels.SearchBooksViewModel
+@{
+    ViewData["Title"] = "Buscador";
+}
+
+<section class="mx-auto" style="max-width: 980px;">
+    <header class="mb-4">
+        <h1 class="display-6 title">Encuentra libros por autor</h1>
+        
+    </header>
+
+    <div class="card card-soft mb-4">
+        <div class="card-body">
+            <form asp-action="Index" method="post" class="row g-3" id="searchForm" novalidate>
+                <div class="col-12 col-md-9">
+                    <label class="form-label" for="Autor">Autor</label>
+                    <input asp-for="Autor" id="Autor" class="form-control form-control-lg"
+                           placeholder="Ej: Gabriel García Márquez"
+                           pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{1,200}" />
+                    <span class="text-danger" asp-validation-for="Autor"></span>
+                </div>
+                <div class="col-12 col-md-3 d-grid align-items-end">
+                    <button id="btnBuscar" class="btn btn-brand btn-lg" type="submit">
+                        <span id="spinnerBuscar" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" style="display:none;"></span>
+                        <span class="visually-hidden">Buscando…</span>
+                        Buscar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @if (Model?.Resultados?.Any() == true)
+    {
+        <div class="card card-soft">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span class="fw-semibold">Resultados</span>
+                <span class="badge rounded-pill bg-accent">@Model.Resultados.Count</span>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <!-- ID para DataTables -->
+                    <table id="resultadosTable" class="table table-hover align-middle mb-0 table-elevated">
+                        <thead class="table-head">
+                            <tr>
+                                <th>Título</th>
+                                <th style="width: 120px;">Año</th>
+                                <th>Editorial</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var r in Model.Resultados)
+                            {
+                                <tr>
+                                    <td class="fw-500">@r.Titulo</td>
+                                    <td>@(r.Anio?.ToString() ?? "—")</td>
+                                    <td class="text-muted">@(!string.IsNullOrWhiteSpace(r.Editorial) ? r.Editorial : "—")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer text-end">
+                <a asp-action="Historial" class="btn btn-brand btn-responsive">Ver historial</a>
+            </div>
+        </div>
+    }
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <!-- DataTables (BS5) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.css">
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const inputAutor = document.querySelector('[name="Autor"]');
+            const spinner = document.getElementById('spinnerBuscar');
+            const btnBuscar = document.getElementById('btnBuscar');
+            const form = document.getElementById('searchForm');
+
+            // Solo letras (mayúsculas, minúsculas, acentos y espacios)
+            inputAutor?.addEventListener('input', function () {
+                this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
+            });
+
+            // Mostrar spinner al enviar
+            form.addEventListener('submit', function (e) {
+                if (inputAutor.value.trim() !== "") {
+                    spinner.style.display = "inline-block";
+                    btnBuscar.setAttribute("disabled", "disabled");
+                } else {
+                    e.preventDefault();
+                }
+            });
+
+            // Inicializa DataTables si existe la tabla de resultados
+            const tbl = document.getElementById('resultadosTable');
+            if (tbl) {
+                $('#resultadosTable').DataTable({
+                    pageLength: 10,
+                    lengthChange: false,
+                    ordering: true,
+                    info: true,
+                    searching: true,
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/2.0.7/i18n/es-ES.json'
+                    }
+                });
+            }
+        });
+    </script>
+
+    <style>
+        /* Paginador y controles con tu tema */
+        .dataTables_wrapper .dataTables_paginate .pagination {
+            margin: .75rem;
+        }
+
+        html[data-theme="dark"] .dataTable,
+        html[data-theme="dark"] .dataTables_info,
+        html[data-theme="dark"] .dataTables_length label,
+        html[data-theme="dark"] .dataTables_filter label {
+            color: var(--text);
+        }
+
+        html[data-theme="dark"] .dataTables_wrapper .form-control,
+        html[data-theme="dark"] .dataTables_wrapper .form-select {
+            background: #0f1713;
+            color: var(--text);
+            border-color: var(--border);
+        }
+
+        html[data-theme="dark"] .page-item .page-link {
+            background: var(--surface);
+            color: var(--text);
+            border-color: var(--border);
+        }
+
+        html[data-theme="dark"] .page-item.active .page-link {
+            background: var(--brand-500);
+            border-color: var(--brand-500);
+            color: #fff;
+        }
+
+        html[data-theme="dark"] .page-item .page-link:hover {
+            background: var(--brand-50);
+            color: var(--brand-800);
+        }
+    </style>
+}

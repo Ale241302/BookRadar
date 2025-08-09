@@ -1,0 +1,35 @@
+# Build
+bin/
+obj/
+**/*.user
+**/*.rsuser
+**/*.suo
+*.Cache
+*.logs
+
+# Rider / VSCode
+.idea/
+.vscode/
+
+# Publish artifacts
+*.publish.xml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+src/BookRadar.Web/appsettings.Development.json
+src/BookRadar.Web/appsettings.json
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build
+bin/
+obj/
+
+# Otros
+*.log
+

@@ -1,0 +1,399 @@
+/* ===============================
+   Paleta BookRadar (biblioteca)
+   =============================== */
+:root {
+    --brand-50: #eef5f1;
+    --brand-100: #d9eae0;
+    --brand-200: #b9d8c3;
+    --brand-300: #8fc19c;
+    --brand-400: #69ae7f;
+    --brand-500: #4a9667; /* principal */
+    --brand-600: #3d7a55;
+    --brand-700: #2f5d42;
+    --brand-800: #224131;
+    --brand-900: #172b22;
+    --accent-100: #fdebd2;
+    --accent-300: #f4c38a;
+    --accent-500: #e49a3a;
+    --page: #f8faf9;
+    --surface: #ffffff;
+    --text: #2a2f2b;
+    --muted: #6b736d;
+    --border: #e8ece9;
+    --shadow: 0 6px 18px rgba(23,43,34,.06), 0 2px 6px rgba(23,43,34,.04);
+}
+
+* {
+    box-sizing: border-box
+}
+
+html, body {
+    height: 100%
+}
+
+body {
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    color: var(--text);
+    background: var(--page);
+}
+
+/* Tipografía */
+.title {
+    font-family: Merriweather, Georgia, 'Times New Roman', serif;
+    letter-spacing: .2px;
+}
+
+/* Navbar / brand */
+.bg-brand {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+.brand {
+    font-weight: 700;
+    color: var(--brand-700);
+    text-decoration: none;
+}
+
+    .brand:hover {
+        color: var(--brand-800)
+    }
+
+.brand-mark {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, var(--brand-500), var(--brand-700));
+    box-shadow: 0 2px 10px rgba(74,150,103,.35);
+    position: relative;
+}
+
+    .brand-mark::after {
+        content: '';
+        position: absolute;
+        inset: 6px 7px auto auto;
+        width: 8px;
+        height: 8px;
+        border-radius: 2px;
+        background: #fff;
+        opacity: .9;
+    }
+
+.nav-link {
+    color: var(--brand-800)
+}
+
+    .nav-link:hover {
+        color: var(--brand-700)
+    }
+
+.nav-link-underline {
+    position: relative;
+    padding-bottom: .25rem;
+}
+
+    .nav-link-underline.active::after,
+    .nav-link-underline:hover::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2px;
+        background: var(--brand-500);
+        border-radius: 2px;
+    }
+
+/* Badges */
+.bg-accent {
+    background: var(--accent-500) !important;
+    color: #fff !important;
+}
+
+.bg-accent-subtle {
+    background: var(--accent-100) !important;
+    color: var(--brand-700) !important;
+}
+
+/* Cards */
+.card {
+    border: 1px solid var(--border);
+}
+
+.card-soft {
+    background: var(--surface);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+/* Tablas */
+.table-head th {
+    background: var(--brand-50);
+    color: var(--brand-800);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+}
+
+.table-elevated tbody tr {
+    transition: background .2s ease, color .2s ease, transform .05s ease;
+}
+
+    .table-elevated tbody tr:hover {
+        background: #fcfefd;
+    }
+
+/* Botones */
+.btn {
+    border-radius: .66rem;
+    font-weight: 600;
+}
+
+.btn-brand {
+    background: var(--brand-500);
+    color: #fff;
+    border: 1px solid var(--brand-500);
+    box-shadow: 0 6px 14px rgba(74,150,103,.25);
+}
+
+    .btn-brand:hover {
+        background: var(--brand-600);
+        border-color: var(--brand-600);
+    }
+
+.btn-outline-brand {
+    background: transparent;
+    color: var(--brand-700);
+    border: 1px solid var(--brand-400);
+}
+
+    .btn-outline-brand:hover {
+        background: var(--brand-50);
+        color: var(--brand-800);
+        border-color: var(--brand-500);
+    }
+
+/* Formularios */
+.form-label {
+    font-weight: 600;
+    color: var(--brand-800)
+}
+
+.form-control {
+    border-radius: .75rem;
+    border: 1px solid var(--border);
+    background: #fff;
+}
+
+    .form-control:focus {
+        border-color: var(--brand-400);
+        box-shadow: 0 0 0 .2rem rgba(74,150,103,.15);
+    }
+
+/* Utilidades */
+.bg-page {
+    background: var(--page) !important;
+}
+
+.text-body {
+    color: var(--text) !important;
+}
+
+.fw-500 {
+    font-weight: 500;
+}
+
+.hover-text:hover {
+    color: var(--brand-700) !important;
+}
+
+/* Footer */
+footer {
+    background: var(--surface);
+}
+
+/* Spinner alineado mejor dentro de botones */
+.spinner-border {
+    vertical-align: text-bottom;
+}
+
+/* ===============================
+   Dark mode (data-theme="dark")
+   =============================== */
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+    }
+}
+
+/* Overrides para dark */
+html[data-theme="dark"] {
+    --page: #0f1512;
+    --surface: #121a16;
+    --text: #e7ede9;
+    --muted: #b9c2bb;
+    --border: #1f2a24;
+    --shadow: 0 6px 18px rgba(0,0,0,.4), 0 2px 6px rgba(0,0,0,.25);
+    /* Ajustes de marca para contraste */
+    --brand-50: #0f2019;
+    --brand-100: #173225;
+    --brand-200: #1e4532;
+    --brand-300: #275b42;
+    --brand-400: #2f6f50;
+    --brand-500: #3c8a65; /* principal dark */
+    --brand-600: #5aa981;
+    --brand-700: #8cc7a7;
+    --brand-800: #a8d9be;
+    --brand-900: #cfeade;
+    --accent-100: #3b2f18;
+    --accent-300: #6b4a1d;
+    --accent-500: #d49035;
+}
+
+    /* Fondo y textos */
+    html[data-theme="dark"] body {
+        background: var(--page);
+        color: var(--text);
+    }
+
+    html[data-theme="dark"] .bg-brand {
+        background: var(--surface);
+        border-bottom-color: var(--border);
+    }
+
+    html[data-theme="dark"] .brand {
+        color: var(--brand-700);
+    }
+
+        html[data-theme="dark"] .brand:hover {
+            color: var(--brand-600);
+        }
+
+    html[data-theme="dark"] .nav-link {
+        color: var(--brand-700) !important;
+    }
+
+        html[data-theme="dark"] .nav-link:hover {
+            color: var(--brand-600) !important;
+        }
+
+    /* Cards y tablas */
+    html[data-theme="dark"] .card {
+        border-color: var(--border);
+        background: var(--surface);
+    }
+
+    html[data-theme="dark"] .card-soft {
+        box-shadow: var(--shadow);
+    }
+
+    html[data-theme="dark"] .table {
+        color: var(--text);
+    }
+
+        html[data-theme="dark"] .table thead th {
+            color: var(--brand-700) !important;
+        }
+
+    /* Hover en tablas (dark): fondo claro + texto negro con prioridad */
+    html[data-theme="dark"] .table-hover tbody tr {
+        transition: background .2s ease, color .2s ease;
+    }
+
+        html[data-theme="dark"] .table-hover tbody tr:hover {
+            background: #e8f0eb !important; /* claro, acorde a paleta */
+        }
+
+            html[data-theme="dark"] .table-hover tbody tr:hover td,
+            html[data-theme="dark"] .table-hover tbody tr:hover th {
+                color: #000 !important; /* texto negro legible */
+            }
+
+                html[data-theme="dark"] .table-hover tbody tr:hover td a,
+                html[data-theme="dark"] .table-hover tbody tr:hover td .text-muted {
+                    color: #000 !important;
+                    opacity: 1 !important;
+                }
+
+    /* Botones */
+    html[data-theme="dark"] .btn-brand {
+        background: var(--brand-500);
+        border-color: var(--brand-500);
+        box-shadow: 0 6px 14px rgba(60,138,101,.25);
+    }
+
+        html[data-theme="dark"] .btn-brand:hover {
+            background: var(--brand-600);
+            border-color: var(--brand-600);
+        }
+
+    html[data-theme="dark"] .btn-outline-brand {
+        color: var(--brand-700);
+        border-color: var(--brand-400);
+    }
+
+        html[data-theme="dark"] .btn-outline-brand:hover {
+            background: var(--brand-50);
+            color: var(--brand-800);
+            border-color: var(--brand-500);
+        }
+
+    /* Formularios */
+    html[data-theme="dark"] .form-control {
+        background: #0f1713;
+        color: var(--text);
+        border-color: var(--border);
+    }
+
+        html[data-theme="dark"] .form-control::placeholder {
+            color: #8aa093;
+        }
+
+        html[data-theme="dark"] .form-control:focus {
+            border-color: var(--brand-400);
+            box-shadow: 0 0 0 .2rem rgba(60,138,101,.18);
+        }
+
+    /* Footer y utilidades */
+    html[data-theme="dark"] footer {
+        background: var(--surface);
+    }
+
+    html[data-theme="dark"] .text-muted {
+        color: var(--muted) !important;
+    }
+
+/* Hamburguesa Bootstrap en dark */
+@media (prefers-color-scheme: dark) {
+    html[data-theme="dark"] .navbar-light .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(231,237,233, 0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+}
+/* Forzar color legible en dark mode para filas de tabla */
+html[data-theme="dark"] .table tbody td {
+    color: var(--text) !important; /* texto principal */
+}
+
+    html[data-theme="dark"] .table tbody td.text-muted {
+        color: var(--brand-700) !important; /* gris más visible */
+    }
+
+/* En hover, mantener texto visible */
+html[data-theme="dark"] .table-hover tbody tr:hover td {
+    color: #000 !important; /* negro sobre fondo claro */
+}
+/* Padding lateral para contenedor de info + paginador */
+.dt-container .row.mt-2.justify-content-between {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    padding-bottom: 15px !important;
+}
+
+
+/* Botones full width solo en responsive */
+@media (max-width: 1080px) {
+    .btn-responsive {
+        display: block;
+        width: 100%;
+    }
+}

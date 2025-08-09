@@ -1,0 +1,109 @@
+﻿@* Views/Shared/_Layout.cshtml *@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@(ViewData["Title"] ?? "BookRadar") · BookRadar</title>
+
+    <!-- Google Fonts: Inter + Merriweather -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Merriweather:wght@400;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="bg-page text-body">
+    <header class="shadow-sm">
+        <nav class="navbar navbar-expand-lg navbar-light bg-brand">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center brand" asp-controller="Books" asp-action="Index">
+                    <span class="brand-mark me-2" aria-hidden="true"></span>
+                    <span class="brand-text">BookRadar</span>
+                </a>
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                        aria-controls="mainNav" aria-expanded="false" aria-label="Abrir navegación">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div id="mainNav" class="collapse navbar-collapse">
+                    <ul class="navbar-nav ms-auto align-items-lg-center">
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-underline @(ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")"
+                               asp-controller="Books" asp-action="Index">Buscador</a>
+                        </li>
+                        <li class="nav-item ms-lg-2">
+                            <a class="nav-link nav-link-underline @(ViewContext.RouteData.Values["action"]?.ToString() == "Historial" ? "active" : "")"
+                               asp-controller="Books" asp-action="Historial">Historial</a>
+                        </li>
+                        <li class="nav-item ms-lg-3">
+                            <!-- Toggle tema -->
+                            <button id="themeToggle" class="btn btn-sm btn-outline-brand d-flex align-items-center gap-2"
+                                    type="button" aria-label="Cambiar tema" title="Cambiar tema">
+                                <span class="theme-icon" aria-hidden="true">🌙</span>
+                                <span class="theme-text">Oscuro</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container py-4 py-md-5">
+        @RenderBody()
+    </main>
+
+    <footer class="border-top">
+        <div class="container py-3 small text-muted d-flex justify-content-between flex-wrap gap-2">
+            <div>&copy; @DateTime.Now.Year · BookRadar</div>
+            <div class="d-flex gap-3">
+                <a class="text-muted text-decoration-none hover-text" asp-controller="Books" asp-action="Index">Buscador</a>
+                <a class="text-muted text-decoration-none hover-text" asp-controller="Books" asp-action="Historial">Historial</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Inicializa el tema: localStorage > prefers-color-scheme > light
+        (function initTheme(){
+            const saved = localStorage.getItem('br-theme');
+            if (saved === 'dark' || saved === 'light') {
+                document.documentElement.setAttribute('data-theme', saved);
+            } else {
+                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+            }
+        })();
+
+        // Actualiza el texto/emoji del botón según tema actual
+        function refreshToggleLabel(){
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            const icon = document.querySelector('#themeToggle .theme-icon');
+            const text = document.querySelector('#themeToggle .theme-text');
+            if (isDark){
+                icon.textContent = '☀️';
+                text.textContent = 'Claro';
+            } else {
+                icon.textContent = '🌙';
+                text.textContent = 'Oscuro';
+            }
+        }
+        refreshToggleLabel();
+
+        // Toggle de tema + persistencia
+        document.getElementById('themeToggle')?.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('br-theme', next);
+            refreshToggleLabel();
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
