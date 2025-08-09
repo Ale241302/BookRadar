@@ -1,5 +1,5 @@
 📚 BookRadar
-BookRadar es una aplicación web desarrollada en ASP.NET Core MVC con Entity Framework Core que permite buscar libros por autor utilizando la API de Open Library y almacenar un historial de búsquedas en base de datos.
+Es una aplicación web desarrollada en ASP.NET Core MVC con Entity Framework Core que permite buscar libros por autor utilizando la API de Open Library y almacenar un historial de búsquedas en base de datos.
 
 🚀 Pasos para ejecutar el proyecto
 A continuación se detallan los pasos necesarios para configurar y ejecutar el proyecto en un entorno local para evaluación:
