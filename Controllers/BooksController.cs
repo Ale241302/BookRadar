@@ -58,7 +58,7 @@ namespace BookRadar.Web.Controllers
             }
             catch
             {
-                // Evita romper la UI si falla el log o el insert (puedes inyectar ILogger y registrar el error)
+                
             }
 
             return View(vm);
