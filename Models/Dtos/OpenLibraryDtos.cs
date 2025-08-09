@@ -1,4 +1,4 @@
-// Models/Dtos/OpenLibraryDtos.cs
+
 using System.Text.Json.Serialization;
 
 namespace BookRadar.Web.Models.Dtos
@@ -22,5 +22,22 @@ namespace BookRadar.Web.Models.Dtos
 
         [JsonPropertyName("publisher_facet")]
         public List<string>? PublisherFacet { get; set; }
+
+        
+        [JsonPropertyName("cover_edition_key")]
+        public string? CoverEditionKey { get; set; }
+
+        [JsonPropertyName("edition_key")]
+        public List<string>? EditionKey { get; set; }
+    }
+
+    
+    public class OpenLibraryEdition
+    {
+        [JsonPropertyName("publishers")]
+        public List<string>? Publishers { get; set; }
+
+        [JsonPropertyName("publish_date")]
+        public string? PublishDate { get; set; }
     }
 }

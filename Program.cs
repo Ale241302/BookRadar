@@ -14,6 +14,13 @@ builder.Services.AddHttpClient<OpenLibraryClient>(c =>
     c.Timeout = TimeSpan.FromSeconds(15);
 });
 
+builder.Services.AddHttpClient("OLBooks", c =>
+{
+    c.BaseAddress = new Uri("https://openlibrary.org/books/");
+    c.Timeout = TimeSpan.FromSeconds(15);
+});
+
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
