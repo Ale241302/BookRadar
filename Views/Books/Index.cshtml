@@ -6,7 +6,6 @@
 <section class="mx-auto" style="max-width: 980px;">
     <header class="mb-4">
         <h1 class="display-6 title">Encuentra libros por autor</h1>
-        
     </header>
 
     <div class="card card-soft mb-4">
@@ -20,7 +19,7 @@
                     <span class="text-danger" asp-validation-for="Autor"></span>
                 </div>
                 <div class="col-12 col-md-3 d-grid align-items-end">
-                    <button id="btnBuscar" class="btn btn-brand btn-lg" type="submit">
+                    <button id="btnBuscar" class="btn btn-brand btn-lg" type="submit" disabled>
                         <span id="spinnerBuscar" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" style="display:none;"></span>
                         <span class="visually-hidden">BuscandoÖ</span>
                         Buscar
@@ -78,29 +77,41 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const inputAutor = document.querySelector('[name="Autor"]');
+            const inputAutor = document.getElementById('Autor');
             const spinner = document.getElementById('spinnerBuscar');
             const btnBuscar = document.getElementById('btnBuscar');
             const form = document.getElementById('searchForm');
 
-            // Solo letras (may˙sculas, min˙sculas, acentos y espacios)
+            // FunciÛn para habilitar/deshabilitar el botÛn seg˙n contenido
+            const setBtnState = () => {
+                const hasText = inputAutor.value.trim().length > 0;
+                btnBuscar.disabled = !hasText;
+            };
+
+            // Restringe caracteres del input (solo letras y espacios)
             inputAutor?.addEventListener('input', function () {
+                const start = this.selectionStart, end = this.selectionEnd;
                 this.value = this.value.replace(/[^a-zA-Z·ÈÌÛ˙¡…Õ”⁄Ò—\s]/g, '');
+                setBtnState();
+                // Restablecer caret si fue necesario
+                this.setSelectionRange(start, end);
             });
 
-            // Mostrar spinner al enviar
+            // Estado inicial
+            setBtnState();
+
+            // Mostrar spinner al enviar si hay texto
             form.addEventListener('submit', function (e) {
                 if (inputAutor.value.trim() !== "") {
                     spinner.style.display = "inline-block";
-                    btnBuscar.setAttribute("disabled", "disabled");
+                    // No fuerces disabled aquÌ; lo maneja el estado
                 } else {
                     e.preventDefault();
                 }
             });
 
             // Inicializa DataTables si existe la tabla de resultados
-            const tbl = document.getElementById('resultadosTable');
-            if (tbl) {
+            if (document.getElementById('resultadosTable')) {
                 $('#resultadosTable').DataTable({
                     pageLength: 10,
                     lengthChange: false,
@@ -116,40 +127,14 @@
     </script>
 
     <style>
-        /* Paginador y controles con tu tema */
-        .dataTables_wrapper .dataTables_paginate .pagination {
-            margin: .75rem;
-        }
-
-        html[data-theme="dark"] .dataTable,
-        html[data-theme="dark"] .dataTables_info,
-        html[data-theme="dark"] .dataTables_length label,
-        html[data-theme="dark"] .dataTables_filter label {
-            color: var(--text);
-        }
-
-        html[data-theme="dark"] .dataTables_wrapper .form-control,
-        html[data-theme="dark"] .dataTables_wrapper .form-select {
-            background: #0f1713;
-            color: var(--text);
-            border-color: var(--border);
-        }
-
-        html[data-theme="dark"] .page-item .page-link {
-            background: var(--surface);
-            color: var(--text);
-            border-color: var(--border);
-        }
-
-        html[data-theme="dark"] .page-item.active .page-link {
-            background: var(--brand-500);
-            border-color: var(--brand-500);
-            color: #fff;
-        }
-
-        html[data-theme="dark"] .page-item .page-link:hover {
-            background: var(--brand-50);
-            color: var(--brand-800);
+        /* Estilo del botÛn "Buscar" cuando est· deshabilitado */
+        .btn-brand:disabled,
+        .btn-brand[disabled] {
+            border: solid 1px #d2d4dd !important;
+            background-color: #f5f5f5 !important;
+            color: #000000 !important;
+            box-shadow: none !important;
+            cursor: not-allowed;
         }
     </style>
 }

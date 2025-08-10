@@ -159,6 +159,7 @@ body {
     .btn-brand:hover {
         background: var(--brand-600);
         border-color: var(--brand-600);
+        color: #fff;
     }
 
 .btn-outline-brand {
@@ -389,6 +390,15 @@ html[data-theme="dark"] .table-hover tbody tr:hover td {
     padding-bottom: 15px !important;
 }
 
+/* Botón primario (marca) deshabilitado: colores solicitados */
+.btn-brand:disabled,
+.btn-brand[disabled] {
+    border: solid 1px #d2d4dd !important;
+    background-color: #f5f5f5 !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    cursor: not-allowed;
+}
 
 /* Botones full width solo en responsive */
 @media (max-width: 1080px) {

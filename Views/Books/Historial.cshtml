@@ -6,7 +6,6 @@
 <section class="mx-auto" style="max-width: 1100px;">
     <header class="mb-4">
         <h1 class="display-6 title">Historial de búsquedas</h1>
-       
     </header>
 
     <div class="card card-soft">
@@ -24,22 +23,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if (Model?.Any() != true)
+                        @foreach (var h in Model ?? Enumerable.Empty<BookRadar.Web.Models.HistorialBusqueda>())
                         {
-                            <tr><td colspan="5" class="text-center text-muted py-4">Aún no hay registros.</td></tr>
-                        }
-                        else
-                        {
-                            foreach (var h in Model)
-                            {
-                                <tr>
-                                    <td class="fw-500">@h.Autor</td>
-                                    <td>@h.Titulo</td>
-                                    <td>@(h.AnioPublicacion?.ToString() ?? "—")</td>
-                                    <td class="text-muted">@(!string.IsNullOrWhiteSpace(h.Editorial) ? h.Editorial : "—")</td>
-                                    <td class="text-muted">@h.FechaConsulta.ToString("yyyy-MM-dd HH:mm:ss")</td>
-                                </tr>
-                            }
+                            <tr>
+                                <td class="fw-500">@h.Autor</td>
+                                <td>@h.Titulo</td>
+                                <td>@(h.AnioPublicacion?.ToString() ?? "—")</td>
+                                <td class="text-muted">@(!string.IsNullOrWhiteSpace(h.Editorial) ? h.Editorial : "—")</td>
+                                <td class="text-muted">@h.FechaConsulta.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                            </tr>
                         }
                     </tbody>
                 </table>
@@ -68,7 +60,8 @@
                 info: true,              // "Mostrando 1 a 10 de ..."
                 searching: true,         // búsqueda rápida
                 language: {
-                    url: 'https://cdn.datatables.net/plug-ins/2.0.7/i18n/es-ES.json'
+                    url: 'https://cdn.datatables.net/plug-ins/2.0.7/i18n/es-ES.json',
+                    emptyTable: 'Aún no hay registros.'
                 }
             });
         });
