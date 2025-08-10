@@ -17,7 +17,7 @@ A continuación se detallan los pasos necesarios para configurar y ejecutar el p
 
    SQL Server 2019+ (https://www.microsoft.com/sql-server)
 
-   Visual Studio 2022
+   Visual Studio
 
    Git
 
@@ -25,7 +25,15 @@ A continuación se detallan los pasos necesarios para configurar y ejecutar el p
 
    Ejecutar el script SQL llamado BookRadar.sql incluido en la carpeta sql
 
-4. Configurar appsettings.Development.json
+   En caso de no ejecutarse correctamente-.
+
+   1. Crear la base de datos BookRadar
+
+   2. Clic derecho ubicar la opción nueva consulta dar clic izquierdo
+
+   3. Copiar lo que hay en BookRadar.sql pegarlo y dar clic izquierdo en Ejecutar con eso nos crea el schema corretamente
+
+4. Configurar appsettings.Development.json y appsettings.json
 
    Edita el archivo en la parte de Server con el valor de tu servidor donde esta la base de datos:
 
@@ -42,6 +50,8 @@ A continuación se detallan los pasos necesarios para configurar y ejecutar el p
    "AllowedHosts": "\*"
    }
 
+   En AllowedHosts eleminar el \ que hay dentro ""
+
 5. Restaurar dependencias
 
    dotnet restore
@@ -55,9 +65,9 @@ A continuación se detallan los pasos necesarios para configurar y ejecutar el p
 
 🎨 Decisiones de diseño
 
--El diseño de BookRadar se centró en tres pilares: usabilidad, simplicidad y adaptabilidad.
+     El diseño de BookRadar se centró en tres pilares: usabilidad, simplicidad y adaptabilidad.
 
--Paleta y estética
+     1. Paleta y estética
 
         Se utilizan CSS Custom Properties (variables) para toda la UI:
 
@@ -73,7 +83,7 @@ A continuación se detallan los pasos necesarios para configurar y ejecutar el p
         --page:#f8faf9, --surface:#ffffff, --text:#2a2f2b, --muted:#6b736d, --border:#e8ece9,
         --shadow:0 6px 18px rgba(23,43,34,.06), 0 2px 6px rgba(23,43,34,.04)
 
--Componentes destacados:
+     2. Componentes destacados:
 
         Botón primario: .btn-brand usa --brand-500 con hover en --brand-600.
 
@@ -98,7 +108,7 @@ A continuación se detallan los pasos necesarios para configurar y ejecutar el p
 
         Persistencia: el botón “Cambiar tema” guarda la elección en localStorage (br-theme).
 
--Accesibilidad:
+     3. Accesibilidad:
 
         Hover en tablas cambia el fondo a claro y fuerza texto negro para legibilidad.
 
@@ -120,7 +130,7 @@ A continuación se detallan los pasos necesarios para configurar y ejecutar el p
         UI (Interfaz de Usuario)
         Bootstrap 5 para maquetación y componentes base.
 
--Tipografías:
+      4. Tipografías:
 
         Inter para texto por legibilidad.
 
@@ -136,7 +146,7 @@ A continuación se detallan los pasos necesarios para configurar y ejecutar el p
 
     Para futuras versiones, se proponen las siguientes mejoras:
 
-    -Escalabilidad
+    1. Escalabilidad
 
         Paginación y filtrado en servidor para manejar grandes volúmenes de datos.
 
@@ -144,12 +154,12 @@ A continuación se detallan los pasos necesarios para configurar y ejecutar el p
 
         API interna para exponer las búsquedas a otros servicios.
 
-    -Experiencia de Usuario
+    2. Experiencia de Usuario
         Búsqueda avanzada por título, editorial o año.
 
         Exportar historial a CSV/Excel desde la interfaz.
 
-    -Sistema de autenticación:
+    3. Sistema de autenticación:
 
         Login para controlar el acceso y registrar qué consultas hace cada usuario.
 
