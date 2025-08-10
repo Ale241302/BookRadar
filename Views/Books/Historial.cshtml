@@ -29,8 +29,8 @@
                                 <td class="fw-500">@h.Autor</td>
                                 <td>@h.Titulo</td>
                                 <td>@(h.AnioPublicacion?.ToString() ?? "—")</td>
-                                <td class="text-muted">@(!string.IsNullOrWhiteSpace(h.Editorial) ? h.Editorial : "—")</td>
-                                <td class="text-muted">@h.FechaConsulta.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                                <td >@(!string.IsNullOrWhiteSpace(h.Editorial) ? h.Editorial : "—")</td>
+                                <td >@h.FechaConsulta.ToString("yyyy-MM-dd HH:mm:ss")</td>
                             </tr>
                         }
                     </tbody>
@@ -66,43 +66,4 @@
             });
         });
     </script>
-
-    <style>
-        /* Ajustes visuales para integrarlo a tu tema */
-        .dataTables_wrapper .dataTables_paginate .pagination {
-            margin: .75rem; /* respirito bajo la tabla */
-        }
-
-        /* Dark mode para DataTables con tus variables */
-        html[data-theme="dark"] .dataTable,
-        html[data-theme="dark"] .dataTables_info,
-        html[data-theme="dark"] .dataTables_length label,
-        html[data-theme="dark"] .dataTables_filter label {
-            color: var(--text);
-        }
-
-        html[data-theme="dark"] .dataTables_wrapper .form-select,
-        html[data-theme="dark"] .dataTables_wrapper .form-control {
-            background: #0f1713;
-            color: var(--text);
-            border-color: var(--border);
-        }
-
-        html[data-theme="dark"] .page-item .page-link {
-            background: var(--surface);
-            color: var(--text);
-            border-color: var(--border);
-        }
-
-        html[data-theme="dark"] .page-item.active .page-link {
-            background: var(--brand-500);
-            border-color: var(--brand-500);
-            color: #fff;
-        }
-
-        html[data-theme="dark"] .page-item .page-link:hover {
-            background: var(--brand-50);
-            color: var(--brand-800);
-        }
-    </style>
 }

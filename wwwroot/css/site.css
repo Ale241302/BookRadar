@@ -400,6 +400,53 @@ html[data-theme="dark"] .table-hover tbody tr:hover td {
     cursor: not-allowed;
 }
 
+/* Ajustes visuales para integrarlo a tu tema */
+.dataTables_wrapper .dataTables_paginate .pagination {
+    margin: .75rem; /* respirito bajo la tabla */
+}
+
+/* Dark mode para DataTables con tus variables */
+html[data-theme="dark"] .dataTable,
+html[data-theme="dark"] .dataTables_info,
+html[data-theme="dark"] .dataTables_length label,
+html[data-theme="dark"] .dataTables_filter label {
+    color: var(--text);
+}
+
+html[data-theme="dark"] .dataTables_wrapper .form-select,
+html[data-theme="dark"] .dataTables_wrapper .form-control {
+    background: #0f1713;
+    color: var(--text);
+    border-color: var(--border);
+}
+
+html[data-theme="dark"] .page-item .page-link {
+    background: var(--surface);
+    color: var(--text);
+    border-color: var(--border);
+}
+
+html[data-theme="dark"] .page-item.active .page-link {
+    background: var(--brand-500);
+    border-color: var(--brand-500);
+    color: #fff;
+}
+
+html[data-theme="dark"] .page-item .page-link:hover {
+    background: var(--brand-50);
+    color: var(--brand-800);
+}
+
+/* Estilo del botón "Buscar" cuando está deshabilitado */
+.btn-brand:disabled,
+.btn-brand[disabled] {
+    border: solid 1px #d2d4dd !important;
+    background-color: #f5f5f5 !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    cursor: not-allowed;
+}
+
 /* Botones full width solo en responsive */
 @media (max-width: 1080px) {
     .btn-responsive {

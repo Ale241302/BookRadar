@@ -53,7 +53,7 @@
                                 <tr>
                                     <td class="fw-500">@r.Titulo</td>
                                     <td>@(r.Anio?.ToString() ?? "—")</td>
-                                    <td class="text-muted">@(!string.IsNullOrWhiteSpace(r.Editorial) ? r.Editorial : "—")</td>
+                                    <td>@(!string.IsNullOrWhiteSpace(r.Editorial) ? r.Editorial : "—")</td>
                                 </tr>
                             }
                         </tbody>
@@ -125,16 +125,4 @@
             }
         });
     </script>
-
-    <style>
-        /* Estilo del botón "Buscar" cuando está deshabilitado */
-        .btn-brand:disabled,
-        .btn-brand[disabled] {
-            border: solid 1px #d2d4dd !important;
-            background-color: #f5f5f5 !important;
-            color: #000000 !important;
-            box-shadow: none !important;
-            cursor: not-allowed;
-        }
-    </style>
 }
